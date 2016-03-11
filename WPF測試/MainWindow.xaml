@@ -5,12 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF測試"
         xmlns:Designer="clr-namespace:SQLite.Designer;assembly=SQLite.Designer" x:Class="WPF測試.MainWindow"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="789.6" Width="1422.4" Loaded="Window_Loaded">
+        Title="MainWindow" Height="789.6" Width="733.1" Loaded="Window_Loaded">
     <Window.Resources>
         <local:job_arrangeDataSet x:Key="job_arrangeDataSet"/>
         <CollectionViewSource x:Key="member_arrayViewSource" Source="{Binding member_array, Source={StaticResource job_arrangeDataSet}}"/>
-        <DataTemplate x:Key="CCHJob">
+        <!--<DataTemplate x:Key="CCHJob">
             <StackPanel Width="20" Height="30">
                 <Border Background="LightBlue" BorderBrush="Black" BorderThickness="1">
                     <TextBlock Text="{Binding JobGuid}" FontSize="8" HorizontalAlignment="Center" />
@@ -19,11 +18,11 @@
                     <TextBlock Text="{Binding JobOwner}" FontSize="8" FontWeight="Bold" HorizontalAlignment="Center" />
                 </Border>
             </StackPanel>
-        </DataTemplate>
+        </DataTemplate>-->
     </Window.Resources>
     <Grid DataContext="{StaticResource member_arrayViewSource}">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="262,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="1396" AutoGenerateColumns="False" SelectionUnit="Cell" ItemTemplate="{StaticResource CCHJob}"/>
+        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="710" AutoGenerateColumns="False" SelectionUnit="Cell" SelectedCellsChanged="DataGridJobTable_SelectedCellsChanged"/>
     </Grid>
 </Window>

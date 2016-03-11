@@ -118,9 +118,14 @@ namespace WPF測試
             //MessageBox.Show("ok");
         }
 
-        private void DataGridJobTable_CurrentCellChanged(object sender, EventArgs e)
+        private void DataGridJobTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            MessageBox.Show(DataGridJobTable.CurrentCell.Column.HeaderTemplate.VisualTree.FirstChild.Text);
+            DataGridCellInfo CurrentCellInJobTable;
+            CurrentCellInJobTable = DataGridJobTable.CurrentCell;
+            int index = DataGridJobTable.CurrentCell.Column.DisplayIndex;
+            //MessageBox.Show(strGuid);
+            //string strGuid = CurrentCellInJobTable.Item[index];
+            //var cellValue = dataRow.Row.ItemArray[index];
         }
     }
 }

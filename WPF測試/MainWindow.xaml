@@ -24,8 +24,6 @@
     <Grid DataContext="{StaticResource member_arrayViewSource}">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="262,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="1396" AutoGenerateColumns="False" SelectionUnit="Cell" ItemTemplate="{StaticResource CCHJob}">
-            
-        </DataGrid>
+        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="1396" AutoGenerateColumns="False" SelectionUnit="Cell" ItemTemplate="{StaticResource CCHJob}"/>
     </Grid>
 </Window>

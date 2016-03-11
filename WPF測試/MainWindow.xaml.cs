@@ -100,8 +100,9 @@ namespace WPF測試
                 FrameworkElementFactory HeaderStackpanel = new FrameworkElementFactory(typeof(StackPanel));
                 OwnerNametextFactory.SetBinding(TextBlock.TextProperty, bindOwnerName);
                 GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
-                HeaderStackpanel.AppendChild(OwnerNametextFactory);
+                GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
                 HeaderStackpanel.AppendChild(GUIDtextFactory);
+                HeaderStackpanel.AppendChild(OwnerNametextFactory);
                 DataTemplate TwotextTemplate = new DataTemplate();
                 TwotextTemplate.VisualTree = HeaderStackpanel;
                 
@@ -115,6 +116,11 @@ namespace WPF測試
             }
             DataGridJobTable.ItemsSource = dataForShow;
             //MessageBox.Show("ok");
+        }
+
+        private void DataGridJobTable_CurrentCellChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show(DataGridJobTable.CurrentCell.Column.HeaderTemplate.VisualTree.FirstChild.Text);
         }
     }
 }

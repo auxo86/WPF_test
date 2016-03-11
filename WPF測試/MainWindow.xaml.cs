@@ -93,17 +93,18 @@ namespace WPF測試
                 bindOwnerName.Mode = BindingMode.TwoWay;
                 bindGUID = new Binding("[" + MatchIndex.ToString() + "].JobGuid");
                 bindGUID.Mode = BindingMode.TwoWay;
-                MultiBinding TwoDataBind = new MultiBinding();
-                TwoDataBind.Bindings.Add(bindOwnerName);
-                TwoDataBind.Bindings.Add(bindGUID);
 
                 // Create the TextBlock
                 FrameworkElementFactory OwnerNametextFactory = new FrameworkElementFactory(typeof(TextBlock));
                 FrameworkElementFactory GUIDtextFactory = new FrameworkElementFactory(typeof(TextBlock));
-                OwnerNametextFactory.SetBinding(TextBlock.TextProperty, TwoDataBind);
+                FrameworkElementFactory HeaderStackpanel = new FrameworkElementFactory(typeof(StackPanel));
+                OwnerNametextFactory.SetBinding(TextBlock.TextProperty, bindOwnerName);
                 GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
+                HeaderStackpanel.AppendChild(OwnerNametextFactory);
+                HeaderStackpanel.AppendChild(GUIDtextFactory);
                 DataTemplate TwotextTemplate = new DataTemplate();
-                TwotextTemplate.VisualTree = OwnerNametextFactory;
+                TwotextTemplate.VisualTree = HeaderStackpanel;
+                
                 //DataTemplate GUIDtextTemplate = new DataTemplate();
                 //GUIDtextTemplate.VisualTree = GUIDtextFactory;
 

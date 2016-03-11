@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WPF測試"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

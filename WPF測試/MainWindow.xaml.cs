@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Data.SQLite;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Data;
 
 namespace WPF測試
 {
@@ -77,14 +78,38 @@ namespace WPF測試
                 dataForShow.Add(DayJobsListForAdd);
             }
             //DataCombine RowData = new DataCombine(JobNamelist, dataForShow);
+
+            Binding bindOwnerName;
+            Binding bindGUID;
             for (int MatchIndex = 0; MatchIndex < JobNamelist.Count; MatchIndex++)
             {
-                //產生欄位資料
-                DataGridTextColumn column = new DataGridTextColumn();
-                //DataGridTemplateColumn column = new DataGridTemplateColumn();
+                //產生欄位資料，使用DataGridTextColumn
+                //DataGridTextColumn column = new DataGridTextColumn();
+                //column.Binding = new System.Windows.Data.Binding("[" + MatchIndex.ToString() + "].JobOwner");
+                //DataGridJobTable.Columns.Add(column);
+
+                //建立DataGridTemplateColumn
+                bindOwnerName = new Binding("[" + MatchIndex.ToString() + "].JobOwner");
+                bindOwnerName.Mode = BindingMode.TwoWay;
+                bindGUID = new Binding("[" + MatchIndex.ToString() + "].JobGuid");
+                bindGUID.Mode = BindingMode.TwoWay;
+                MultiBinding TwoDataBind = new MultiBinding();
+                TwoDataBind.Bindings.Add(bindOwnerName);
+                TwoDataBind.Bindings.Add(bindGUID);
+
+                // Create the TextBlock
+                FrameworkElementFactory OwnerNametextFactory = new FrameworkElementFactory(typeof(TextBlock));
+                FrameworkElementFactory GUIDtextFactory = new FrameworkElementFactory(typeof(TextBlock));
+                OwnerNametextFactory.SetBinding(TextBlock.TextProperty, TwoDataBind);
+                GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
+                DataTemplate TwotextTemplate = new DataTemplate();
+                TwotextTemplate.VisualTree = OwnerNametextFactory;
+                //DataTemplate GUIDtextTemplate = new DataTemplate();
+                //GUIDtextTemplate.VisualTree = GUIDtextFactory;
+
+                DataGridTemplateColumn column = new DataGridTemplateColumn();
                 column.Header = JobNamelist[MatchIndex];
-                column.Binding = new System.Windows.Data.Binding("[" + MatchIndex.ToString() + "].JobOwner");
-                //column.CellTemplate = DataGridJobTable.FindResource("CCHJob").;
+                column.CellTemplate = TwotextTemplate;
                 DataGridJobTable.Columns.Add(column);
             }
             DataGridJobTable.ItemsSource = dataForShow;

@@ -6,6 +6,8 @@ using System.Data.SQLite;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Windows.Data;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace WPF測試
 {
@@ -99,13 +101,17 @@ namespace WPF測試
                 FrameworkElementFactory GUIDtextFactory = new FrameworkElementFactory(typeof(TextBlock));
                 FrameworkElementFactory HeaderStackpanel = new FrameworkElementFactory(typeof(StackPanel));
                 OwnerNametextFactory.SetBinding(TextBlock.TextProperty, bindOwnerName);
+                //給TextBlock設定名字
+                OwnerNametextFactory.SetValue(TextBlock.NameProperty, "TextBlockJobOwnerName");
                 GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
+                //給TextBlock設定名字
+                GUIDtextFactory.SetValue(TextBlock.NameProperty, "TextBlockJobGuid");
                 GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
                 HeaderStackpanel.AppendChild(GUIDtextFactory);
                 HeaderStackpanel.AppendChild(OwnerNametextFactory);
                 DataTemplate TwotextTemplate = new DataTemplate();
                 TwotextTemplate.VisualTree = HeaderStackpanel;
-                
+
                 //DataTemplate GUIDtextTemplate = new DataTemplate();
                 //GUIDtextTemplate.VisualTree = GUIDtextFactory;
 
@@ -120,12 +126,31 @@ namespace WPF測試
 
         private void DataGridJobTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            DataGridCellInfo CurrentCellInJobTable;
-            CurrentCellInJobTable = DataGridJobTable.CurrentCell;
-            int index = DataGridJobTable.CurrentCell.Column.DisplayIndex;
-            //MessageBox.Show(strGuid);
-            //string strGuid = CurrentCellInJobTable.Item[index];
-            //var cellValue = dataRow.Row.ItemArray[index];
+            MessageBox.Show(DataGridJobTable.CurrentColumn.DisplayIndex.ToString());
+            DataGridRow Row = (DataGridRow)DataGridJobTable.SelectedItem;
+            DataGridRow rowContainer = (DataGridRow)DataGridJobTable.ItemContainerGenerator.ContainerFromIndex(Row.GetIndex());
+            DataGridCellsPresenter presenter = GetVisualChild(rowContainer);
+            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(DataGridJobTable.CurrentColumn.DisplayIndex);
+            MessageBox.Show(cell.ContentTemplate.VisualTree.FirstChild.Text);
+        }
+
+        public static T GetVisualChild<T>(Visual parent) where T : Visual
+        {
+            T child = default(T);
+            int numVisuals = VisualTreeHelper.GetChildrenCount(parent);
+
+            for (int i = 0; i < numVisuals; i++)
+            {
+                Visual v = (Visual)VisualTreeHelper.GetChild(parent, i);
+                child = v as T;
+
+                if (child == null)
+                    child = GetVisualChild(v);
+                else
+                    break;
+            }
+
+            return child;
         }
     }
 }

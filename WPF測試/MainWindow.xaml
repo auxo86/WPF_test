@@ -23,6 +23,6 @@
     <Grid DataContext="{StaticResource member_arrayViewSource}">
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="80,10,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="262,10,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="710" AutoGenerateColumns="False" SelectionUnit="FullRow"  SelectedCellsChanged="DataGridJobTable_SelectedCellsChanged"/>
+        <DataGrid x:Name="DataGridJobTable" HorizontalAlignment="Left" Height="700" Margin="10,52,0,0" VerticalAlignment="Top" Width="710" AutoGenerateColumns="False" SelectionUnit="Cell"  SelectedCellsChanged="DataGridJobTable_SelectedCellsChanged"/>
     </Grid>
 </Window>

@@ -126,14 +126,17 @@ namespace WPF測試
 
         private void DataGridJobTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            //這樣只能用在SelectionUnit="FullRow"的前提下
-            int RowIndex = DataGridJobTable.SelectedIndex;
-            int ColumnIndex = DataGridJobTable.CurrentColumn.DisplayIndex;
-            DataGridRow rowContainer = (DataGridRow)DataGridJobTable.ItemContainerGenerator.ContainerFromIndex(RowIndex);
-            DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(rowContainer);
-            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(ColumnIndex);
+            DataGridCell cell = (DataGridCell)DataGridJobTable.ItemContainerGenerator.ContainerFromItem( DataGridJobTable.SelectedCells[0] );
             TextBlock tb = GetVisualChild<TextBlock>(cell);
-            MessageBox.Show(RowIndex.ToString() + ":" + ColumnIndex.ToString() + "\n" + tb.Text.ToString());
+            MessageBox.Show(tb.Text.ToString());
+            ////這樣只能用在SelectionUnit="FullRow"的前提下
+            //int RowIndex = DataGridJobTable.SelectedIndex;
+            //int ColumnIndex = DataGridJobTable.CurrentColumn.DisplayIndex;
+            //DataGridRow rowContainer = (DataGridRow)DataGridJobTable.ItemContainerGenerator.ContainerFromIndex(RowIndex);
+            //DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(rowContainer);
+            //DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(ColumnIndex);
+            //TextBlock tb = GetVisualChild<TextBlock>(cell);
+            //MessageBox.Show(RowIndex.ToString() + ":" + ColumnIndex.ToString() + "\n" + tb.Text.ToString());
         }
 
         public static T GetVisualChild<T>(Visual parent) where T : Visual

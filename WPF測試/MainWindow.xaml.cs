@@ -106,7 +106,7 @@ namespace WPF測試
                 GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
                 //給TextBlock設定名字
                 GUIDtextFactory.SetValue(TextBlock.NameProperty, "TextBlockJobGuid");
-                GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
+                //GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
                 HeaderStackpanel.AppendChild(GUIDtextFactory);
                 HeaderStackpanel.AppendChild(OwnerNametextFactory);
                 DataTemplate TwotextTemplate = new DataTemplate();
@@ -126,12 +126,14 @@ namespace WPF測試
 
         private void DataGridJobTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            MessageBox.Show(DataGridJobTable.CurrentColumn.DisplayIndex.ToString());
-            DataGridRow Row = (DataGridRow)DataGridJobTable.SelectedItem;
-            DataGridRow rowContainer = (DataGridRow)DataGridJobTable.ItemContainerGenerator.ContainerFromIndex(Row.GetIndex());
-            DataGridCellsPresenter presenter = GetVisualChild(rowContainer);
-            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(DataGridJobTable.CurrentColumn.DisplayIndex);
-            MessageBox.Show(cell.ContentTemplate.VisualTree.FirstChild.Text);
+            //這樣只能用在SelectionUnit="FullRow"的前提下
+            int RowIndex = DataGridJobTable.SelectedIndex;
+            int ColumnIndex = DataGridJobTable.CurrentColumn.DisplayIndex;
+            DataGridRow rowContainer = (DataGridRow)DataGridJobTable.ItemContainerGenerator.ContainerFromIndex(RowIndex);
+            DataGridCellsPresenter presenter = GetVisualChild<DataGridCellsPresenter>(rowContainer);
+            DataGridCell cell = (DataGridCell)presenter.ItemContainerGenerator.ContainerFromIndex(ColumnIndex);
+            TextBlock tb = GetVisualChild<TextBlock>(cell);
+            MessageBox.Show(RowIndex.ToString() + ":" + ColumnIndex.ToString() + "\n" + tb.Text.ToString());
         }
 
         public static T GetVisualChild<T>(Visual parent) where T : Visual
@@ -145,12 +147,17 @@ namespace WPF測試
                 child = v as T;
 
                 if (child == null)
-                    child = GetVisualChild(v);
+                    child = GetVisualChild<T>(v);
                 else
                     break;
             }
 
             return child;
+        }
+
+        private void DataGridJobTable_CurrentCellChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

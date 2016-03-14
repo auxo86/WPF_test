@@ -169,13 +169,7 @@ namespace WPF測試
                 else
                     break;
             }
-
             return child;
-        }
-
-        private void DataGridJobTable_CurrentCellChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

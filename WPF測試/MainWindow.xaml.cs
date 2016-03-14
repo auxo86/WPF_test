@@ -126,8 +126,10 @@ namespace WPF測試
 
         private void DataGridJobTable_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            DataGridCell cell = (DataGridCell)DataGridJobTable.ItemContainerGenerator.ContainerFromItem( DataGridJobTable.SelectedCells[0] );
-            TextBlock tb = GetVisualChild<TextBlock>(cell);
+            var item = e.AddedCells[0];
+            var col = item.Column as DataGridColumn;
+            var fc = col.GetCellContent(item.Item);
+            TextBlock tb = GetVisualChild<TextBlock>(fc);
             MessageBox.Show(tb.Text.ToString());
             ////這樣只能用在SelectionUnit="FullRow"的前提下
             //int RowIndex = DataGridJobTable.SelectedIndex;

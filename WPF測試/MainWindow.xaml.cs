@@ -106,7 +106,8 @@ namespace WPF測試
                 GUIDtextFactory.SetBinding(TextBlock.TextProperty, bindGUID);
                 //給TextBlock設定名字
                 GUIDtextFactory.SetValue(TextBlock.NameProperty, "TextBlockJobGuid");
-                //GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
+                //決定是否顯示GUID
+                GUIDtextFactory.SetValue(TextBlock.VisibilityProperty, Visibility.Collapsed);
                 HeaderStackpanel.AppendChild(GUIDtextFactory);
                 HeaderStackpanel.AppendChild(OwnerNametextFactory);
                 DataTemplate TwotextTemplate = new DataTemplate();
